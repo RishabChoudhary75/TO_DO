@@ -3,15 +3,24 @@ import { MdDeleteForever } from "react-icons/md";
 import { CiEdit } from "react-icons/ci";
 import { MdSaveAlt } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
-function DataShow({ data, dataEdit, datadelete }) {
+function DataShow({ data, dataEdit, datadelete, ToggleDone }) {
   const [Edit, SetEdit] = useState(false);
   const [Editdata, SetEditdata] = useState(false);
+  let color
   let datashow;
+  if(data.Destination=="work"){
+    color ="bg-green-600"
+  }else if(data.Destination=="Shopping"){
+    color ="bg-red-600"
+  }else if(data.Destination=="family"){
+    color ="bg-yellow-500"
+  }else if(data.Destination=="inbox"){
+    color ="bg-gray-400"
+  }
   if (Edit) {
     datashow = (
-      <div className="w-full flex">
+      <div className="w-full flex ">
         <input
-        
           type="text"
           value={data.text}
           onChange={(e) => dataEdit({ ...data, text: e.target.value })}
@@ -19,12 +28,11 @@ function DataShow({ data, dataEdit, datadelete }) {
         />
 
         <button
-        
           onClick={() => {
             SetEdit(!Edit);
             SetEditdata(true);
           }}
-          className="bg-blue-400 px-5 rounded-[4px] text-white"
+          className=" rounded-[4px] text-black"
         >
           <MdSaveAlt />
         </button>
@@ -32,7 +40,7 @@ function DataShow({ data, dataEdit, datadelete }) {
     );
   } else {
     datashow = (
-      <div className="flex w-full ">
+      <div className="flex w-full gap-1 ">
         <p
           className={`w-full bg-white ${
             data.done ? "line-through" : "no-underline"
@@ -40,33 +48,32 @@ function DataShow({ data, dataEdit, datadelete }) {
         >
           {data.text}
         </p>
-
-        {Editdata && <FaEdit className="my-auto " />}
+        <div className={`size-2 rounded-full my-auto ${color}`}></div>
+        
         <button
           onClick={() => {
             SetEdit(!Edit);
           }}
-          className="bg-blue-400 px-5 rounded-[4px] text-white"
+          className=" rounded-[4px] text-black"
         >
-          <CiEdit />
+          {Editdata?<FaEdit/>:<CiEdit />}
         </button>
       </div>
     );
   }
   return (
+  
+
     <div className="flex gap-1">
-      <div className="w-full flex bg-white gap-1">
+      <div className="w-full flex bg-white gap-1 items-baseline">
         {!Edit && (
           <input
-          className="bg-blue-400"
-            type="checkbox"
-            checked={data.done}
-            onChange={(e) => {
-              dataEdit({
-                ...data,
-                done:e.target.checked,
-              });
-            }}
+          className="  peer h-4 w-4 my-auto  cursor-pointer transition-all appearance-none rounded-full bg-slate-100 shadow hover:shadow-md border border-slate-300 checked:bg-slate-800 checked:border-slate-800"
+          type="checkbox"
+          checked={data.done}
+          onChange={() => {
+            ToggleDone(data.id); // Call the ToggleDone function to toggle the done status
+          }}
           />
         )}
         {datashow}
@@ -75,11 +82,13 @@ function DataShow({ data, dataEdit, datadelete }) {
         onClick={() => {
           datadelete(data.id);
         }}
-        className="bg-blue-400 px-5 rounded-[4px] text-white"
-      >
+        className="  rounded-[4px] text-black"
+        >
         <MdDeleteForever />
       </button>
     </div>
+    
+        
   );
 }
 
