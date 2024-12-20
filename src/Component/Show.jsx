@@ -4,23 +4,26 @@ import DataShow from "./DataShow";
 import Serchbar from "./Serchbar";
 import Usefilterdata from "./Usefilterdata";
 import Datamodel from "./Datamodel";
+import { useSelector } from "react-redux";
 
-function Show({ data, dataEdit, datadelete, ToggleDone }) {
+function Show({  dataEdit, datadelete, ToggleDone }) {
   let count={Inbox:0,Work:0,Shopping:0,Family:0}
+  const val=useSelector((state)=>state.Data)
+  console.log(val)
   const [filterdata, Setfilterdata] = useState("All");
   const [Search, SetSearch] = useState("");
   const[Model,SetModel]=useState(false)
   const[ModelDestination,SetModelDestination]=useState()
 
-  const filteralldata = Usefilterdata(data, Search, filterdata);
- for(let i=0;i<data.length;i++){
-  if(data[i].Destination== "work"){
+  const filteralldata = Usefilterdata(val, Search, filterdata);
+ for(let i=0;i<val.length;i++){
+  if(val[i].Destination== "work"){
     count.Work+=1
-  }else if(data[i].Destination== "Shopping"){
+  }else if(val[i].Destination== "Shopping"){
     count.Shopping+=1
-  }else if(data[i].Destination== "family"){
+  }else if(val[i].Destination== "family"){
     count.Family+=1
-  }else if(data[i].Destination== "inbox"){
+  }else if(val[i].Destination== "inbox"){
     count.Inbox+=1
   }
  }
@@ -31,7 +34,7 @@ function Show({ data, dataEdit, datadelete, ToggleDone }) {
       <h1 className=" font-bold text-3xl ">Today</h1>
       {Model && (
           <Datamodel
-            data={data}
+            val={val}
             Search={Search}
             filterdata={ModelDestination} 
             dataEdit={dataEdit}

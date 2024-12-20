@@ -3,9 +3,11 @@ import { MdDeleteForever } from "react-icons/md";
 import { CiEdit } from "react-icons/ci";
 import { MdSaveAlt } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
-function DataShow({ data, dataEdit, datadelete, ToggleDone }) {
+
+function DataShow({data,dataEdit,datadelete,ToggleDone}) {
   const [Edit, SetEdit] = useState(false);
   const [Editdata, SetEditdata] = useState(false);
+ 
   let color
   let datashow;
   if(data.Destination=="work"){
@@ -71,7 +73,7 @@ function DataShow({ data, dataEdit, datadelete, ToggleDone }) {
           className="  peer h-4 w-4 my-auto  cursor-pointer transition-all appearance-none rounded-full bg-slate-100 shadow hover:shadow-md border border-slate-300 checked:bg-slate-800 checked:border-slate-800"
           type="checkbox"
           checked={data.done}
-          onChange={() => {
+          onClick={() => {
             ToggleDone(data.id); // Call the ToggleDone function to toggle the done status
           }}
           />
