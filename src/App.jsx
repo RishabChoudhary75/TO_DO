@@ -4,12 +4,13 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import Main from './Component/Main'
 
+
 function App() {
-  const [count, setCount] = useState(0)
+ 
 
   return (
     <div className='bg-orange-200 flex justify-center items-center  h-screen'>
-      
+    
    <Main/>
     </div>
   )

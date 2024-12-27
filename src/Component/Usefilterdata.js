@@ -1,14 +1,16 @@
 import React from 'react'
 
 
-function Usefilterdata(val,Search,filterdata) {
- console.log(val)
- if (!Array.isArray(val)) {
-  console.error("Expected an array, but got:", val);
-  return [];
-}
-
-return val.filter((task) => {
+function Usefilterdata(val,Search,filterdata,NCompare) {
+  const { start = '', End = '' } = NCompare || {};
+  if (!Array.isArray(val)) {
+    console.error("Expected an array, but got:", val);
+    return [];
+  }
+  
+  return val.filter((task) => {
+ 
+  const matchdate= (!start||new Date(task.timestamp).getDate()>=new Date(start).getDate())&&(!End||new Date(task.timestamp).getDate()<=new Date(End).getDate());
   const matchesSearch =
     task.text.toLowerCase().includes(Search.toLowerCase()) || Search === "";
 
@@ -18,7 +20,7 @@ return val.filter((task) => {
     (filterdata === "unchecked" && !task.done) ||
     task.Destination === filterdata;
 
-  return matchesSearch && matchesStatus;
+  return matchdate&&matchesSearch && matchesStatus;
 });
 }
 
