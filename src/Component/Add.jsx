@@ -1,13 +1,16 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
-function Add({ adddata }) {
+import {Adds} from './Dataslice'
+function Add() {
   const [val, setVal] = useState("");
   const[Filterdata,Setfilterdata]=useState("")
+  const dispatch=useDispatch()
   const handleFilterChange = (e) => {
     Setfilterdata(e.target.value);
   };
-  const handeldata = (e) => {
-    e.preventDefault();
+  const handeldata = () => {
+
 
     if (val.length >= 4) {
        if(Filterdata.length<=0) {
@@ -15,8 +18,8 @@ function Add({ adddata }) {
           position: "top-center"
         });
       }else{
-
-        adddata(val,Filterdata);
+   dispatch(Adds({val,Filterdata}))
+      
         setVal("");
         Setfilterdata('')
         toast.success("New task added!", {
