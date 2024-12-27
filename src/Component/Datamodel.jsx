@@ -2,12 +2,12 @@ import React from 'react'
 import DataShow from "./DataShow";
 import Usefilterdata from "./Usefilterdata";
 import { IoMdClose } from "react-icons/io";
-function Datamodel({val,Search,filterdata,dataEdit,datadelete,SetModel,SetModelDestination}) {
+function Datamodel({val,Search,filterdata,dataEdit,datadelete,SetModel,SetModelDestination,ToggleDone}) {
     const filteralldata = Usefilterdata(val, Search,filterdata);
   return (
     <div>
        <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50 flex justify-center items-center">
-          <div className="relative bg-white p-2 rounded-md shadow-lg w-[25%] h-[25%]">
+          <div className="relative bg-white p-2 rounded-md shadow-lg w-56 h-36">
           <h1 className="font-bold"> {filterdata}</h1>
             <div className="w-[90%] h-[68%] overflow-auto  ">
         <ul>
@@ -17,6 +17,7 @@ function Datamodel({val,Search,filterdata,dataEdit,datadelete,SetModel,SetModelD
                 data={val}
                 dataEdit={dataEdit}
                 datadelete={datadelete}
+                ToggleDone={ToggleDone}
               />
             </li>
           ))}
